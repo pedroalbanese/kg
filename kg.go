@@ -9,13 +9,13 @@ import (
 	"errors"
 )
 
-// oid 1.2.9999.1.1.1
+// oid 2.16.100.1.1.1
 
 var (
-	oidKG = asn1.ObjectIdentifier{1, 2, 999, 1, 1, 1}
+	oidKG = asn1.ObjectIdentifier{2, 16, 100, 1, 1, 1}
 
-	oidKG256r1 = asn1.ObjectIdentifier{1, 2, 999, 1, 1, 1, 1}
-	oidKG384r1 = asn1.ObjectIdentifier{1, 2, 999, 1, 1, 1, 2}
+	oidKG256r1 = asn1.ObjectIdentifier{2, 16, 100, 1, 1, 1, 1}
+	oidKG384r1 = asn1.ObjectIdentifier{2, 16, 100, 1, 1, 1, 2}
 )
 
 // Alterando o tipo de `kg` para *rcurve, pois `newRcurve` retorna esse tipo.
