@@ -1,4 +1,4 @@
-package main
+package kg
 
 import (
 	"crypto/elliptic"
