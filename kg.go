@@ -130,6 +130,12 @@ func NewPrivateKey(privateKey *ecdsa.PrivateKey) *PrivateKey {
 	}
 }
 
+func ECDH(privateKey *ecdsa.PrivateKey, publicKey *ecdsa.PublicKey) ([]byte, error) {
+	// Compute shared key
+	x, _ := privateKey.Curve.ScalarMult(publicKey.X, publicKey.Y, privateKey.D.Bytes())
+	return x.Bytes(), nil
+}
+
 // Define pkAlgorithmIdentifier to avoid undefined identifier
 type pkAlgorithmIdentifier struct {
 	Algorithm  asn1.ObjectIdentifier
