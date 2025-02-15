@@ -18,24 +18,24 @@ var (
 	oidKG384r1 = asn1.ObjectIdentifier{2, 16, 100, 1, 1, 1, 2}
 )
 
-// Alterando o tipo de `kg` para *rcurve, pois `newRcurve` retorna esse tipo.
+// Changing the type of `kg` to *rcurve, since `newRcurve` returns this type.
 var kg256, kg384 *rcurve
 
-// Variável sync.Once para garantir que a inicialização ocorra apenas uma vez
+// sync.Once variable to ensure initialization occurs only once
 var initonce sync.Once
 
-// Inicialização da curva P384
+// Initialization of curve P256
 func init() {
 	initP256()
 	initP384()
 }
 
-// Função para inicializar a curva P384
+// Function to initialize curve P256
 func initP256() {
-	// Inicializando a curva P384 diretamente sem chamar P384 dentro dela
+	// Initializing the P256 curve directly without calling P256 inside it
 	twisted := elliptic.P256().Params()
 
-	// Definindo parâmetros específicos da curva numsp384t1
+	// Defining curve parameters for kg256r1
 	params := &elliptic.CurveParams{
 		Name:    "kg256r1",
 		P:       new(big.Int).Set(twisted.P),
@@ -43,27 +43,27 @@ func initP256() {
 		BitSize: twisted.BitSize,
 	}
 
-	// Definindo as coordenadas Gx e Gy
+	// Defining the coordinates Gx and Gy
 	params.Gx, _ = new(big.Int).SetString("BE7E568DA4666BF6DC2702E5D1E33BB30C3D65EDC5EA96820412D0894811A00", 16)
 	params.Gy, _ = new(big.Int).SetString("C3875C40ACE3CE0F5E42DF37A60BACA589D09A795B9CF2F64727BB3623A23EE8", 16)
 	r, _ := new(big.Int).SetString("E9995EEC1C1CE7099201839743B93D30FE6E8748C087317013C8F358B074FDFF", 16)
 
-	// Inicializando a variável global `kg` com a curva gerada
+	// Initializing the global `kg` variable with the generated curve
 	kg256 = newRcurve(elliptic.P256(), params, r)
 }
 
-// Função que retorna a curva P384, utilizando a inicialização feita no init
+// Function to return the P256 curve, using the initialization done in init
 func P256() elliptic.Curve {
-	initonce.Do(initP256) // Isso garante que `initP384` será chamado apenas uma vez
+	initonce.Do(initP256) // This ensures that `initP256` will be called only once
 	return kg256
 }
 
-// Função para inicializar a curva P384
+// Function to initialize curve P384
 func initP384() {
-	// Inicializando a curva P384 diretamente sem chamar P384 dentro dela
+	// Initializing the P384 curve directly without calling P384 inside it
 	twisted := elliptic.P384().Params()
 
-	// Definindo parâmetros específicos da curva numsp384t1
+	// Defining curve parameters for kg384r1
 	params := &elliptic.CurveParams{
 		Name:    "kg384r1",
 		P:       new(big.Int).Set(twisted.P),
@@ -71,22 +71,22 @@ func initP384() {
 		BitSize: twisted.BitSize,
 	}
 
-	// Definindo as coordenadas Gx e Gy
+	// Defining the coordinates Gx and Gy
 	params.Gx, _ = new(big.Int).SetString("AB688CF535527F21551631672D29703A59D132A47E6FEEBB2FD21E55898110859CA579D7AAED2AA7AB12964EEED326A8", 16)
 	params.Gy, _ = new(big.Int).SetString("83A66D0CB601A1AC39FF57035C141C78F75CD4214C56A82C9BE1573FA1D0B1CA8988D4F61AB9C14F70D61BA212867194", 16)
 	r, _ := new(big.Int).SetString("C870904DAF5C19DCC5D126956C3749F7A56A76713ABF601D38AB335003AD237D1CFDE925869B93E9B69D63A89FC6DB2B", 16)
 
-	// Inicializando a variável global `kg` com a curva gerada
+	// Initializing the global `kg` variable with the generated curve
 	kg384 = newRcurve(elliptic.P384(), params, r)
 }
 
-// Função que retorna a curva P384, utilizando a inicialização feita no init
+// Function to return the P384 curve, using the initialization done in init
 func P384() elliptic.Curve {
-	initonce.Do(initP384) // Isso garante que `initP384` será chamado apenas uma vez
+	initonce.Do(initP384) // This ensures that `initP384` will be called only once
 	return kg384
 }
 
-// Estruturas para representar as chaves pública e privada
+// Structures to represent public and private keys
 type PublicKey struct {
 	X, Y  *big.Int
 	Curve elliptic.Curve
@@ -97,7 +97,7 @@ type PrivateKey struct {
 	D         *big.Int
 }
 
-// Função para converter a chave pública para ECDSA
+// Function to convert the public key to ECDSA
 func (pk *PublicKey) ToECDSA() *ecdsa.PublicKey {
 	return &ecdsa.PublicKey{
 		Curve: pk.Curve,
@@ -106,7 +106,7 @@ func (pk *PublicKey) ToECDSA() *ecdsa.PublicKey {
 	}
 }
 
-// Função para converter a chave privada para ECDSA
+// Function to convert the private key to ECDSA
 func (pk *PrivateKey) ToECDSAPrivateKey() *ecdsa.PrivateKey {
 	return &ecdsa.PrivateKey{
 		PublicKey: ecdsa.PublicKey{
@@ -118,7 +118,7 @@ func (pk *PrivateKey) ToECDSAPrivateKey() *ecdsa.PrivateKey {
 	}
 }
 
-// Função para criar uma nova chave privada a partir de uma chave privada ECDSA
+// Function to create a new private key from an ECDSA private key
 func NewPrivateKey(privateKey *ecdsa.PrivateKey) *PrivateKey {
 	return &PrivateKey{
 		PublicKey: PublicKey{
