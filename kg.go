@@ -49,7 +49,7 @@ func initP256() {
 	r, _ := new(big.Int).SetString("E9995EEC1C1CE7099201839743B93D30FE6E8748C087317013C8F358B074FDFF", 16)
 
 	// Initializing the global `kg` variable with the generated curve
-	kg256 = newRcurve(elliptic.P256(), params, r)
+	kg256 = newRcurve(twisted, params, r)
 }
 
 // Function to return the P256 curve, using the initialization done in init
@@ -77,7 +77,7 @@ func initP384() {
 	r, _ := new(big.Int).SetString("C870904DAF5C19DCC5D126956C3749F7A56A76713ABF601D38AB335003AD237D1CFDE925869B93E9B69D63A89FC6DB2B", 16)
 
 	// Initializing the global `kg` variable with the generated curve
-	kg384 = newRcurve(elliptic.P384(), params, r)
+	kg384 = newRcurve(twisted, params, r)
 }
 
 // Function to return the P384 curve, using the initialization done in init
