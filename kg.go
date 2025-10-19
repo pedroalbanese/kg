@@ -4,7 +4,9 @@ Package kgcrypto - Implementação de curvas elípticas KG256r1 e KG384r1 para c
   "Efficient Cryptographic Primitives Based on Special Elliptic Curves"
   (https://eprint.iacr.org/2023/1656)
 
-Este pacote define curvas elípticas personalizadas com parâmetros cuidadosamente escolhidos para garantir maior eficiência computacional em operações de ECDSA e ECDH. As curvas KG256r1 e KG384r1 seguem a forma clássica de Weierstrass com parâmetros `a`, `b`, `p`, `n`, `Gx`, `Gy`, mas com um coeficiente `a` não trivial, o que permite otimizações específicas de curva.
+Este pacote define curvas elípticas personalizadas com parâmetros cuidadosamente escolhidos para garantir maior eficiência computacional 
+em operações de ECDSA e ECDH. As curvas KG256r1 e KG384r1 seguem a forma clássica de Weierstrass com parâmetros `a`, `b`, `p`, `n`, `Gx`, `Gy`, 
+mas com um coeficiente `a` não trivial, o que permite otimizações específicas de curva.
 
 Funcionalidades incluídas:
 - Implementação das curvas KG256r1 e KG384r1 (interface elliptic.Curve)
@@ -14,7 +16,8 @@ Funcionalidades incluídas:
 - Serialização e desserialização em formatos PKCS#8 (privadas) e PKIX (públicas)
 - Conversão para/da chaves do pacote crypto/ecdsa
 
-A implementação é compatível com as interfaces padrão da biblioteca crypto Go, tornando possível o uso transparente em aplicações que esperam `crypto.Signer` ou `crypto.PublicKey`.
+A implementação é compatível com as interfaces padrão da biblioteca crypto Go, tornando possível o uso transparente em aplicações que esperam 
+`crypto.Signer` ou `crypto.PublicKey`.
 
 ====================================================================
 Licença ISC
