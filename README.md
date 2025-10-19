@@ -4,6 +4,8 @@ KG Bulgarian Trusted Short Weierstrass Elliptic Curves
 The KG-256r1 and KG-384r1 curves were proposed by the Bulgarian Academy of Sciences:  
 https://arxiv.org/abs/2208.01635
 
+Short Weierstrass's elliptic curves with underlying hard Elliptic Curve Discrete Logarithm Problems was widely used in Cryptographic applications. This paper introduces a new security notation 'trusted security' for computation methods of elliptic curves for cryptography. Three additional "trusted security acceptance criteria" is proposed to be met by the elliptic curves aimed for cryptography. Further, two cryptographically secure elliptic curves over 256 bit and 384 bit prime fields are demonstrated which are secure from ECDLP, ECC as well as trust perspectives. The proposed elliptic curves are successfully subjected to thorough security analysis and performance evaluation with respect to key generation and signing/verification and hence, proven for their cryptographic suitability and great feasibility for acceptance by the community. 
+
 ### Exemplo
 ```go
 package main
