@@ -4,6 +4,7 @@ import (
 	"crypto"
 	"crypto/ecdsa"
 	"crypto/elliptic"
+	"crypto/subtle"
 	"encoding/asn1"
 	"errors"
 	"io"
@@ -720,8 +721,13 @@ func VerifyASN1(pub *PublicKey, digest, signature []byte) (bool, error) {
 	}
 
 	// Verificar se r ≡ x mod N
-	valid := x.Mod(x, N).Cmp(r) == 0
-	if !valid {
+	xModN := new(big.Int).Mod(x, N)
+	
+	// Ajustar para ter mesmo tamanho de bytes
+	xb := xModN.FillBytes(make([]byte, (N.BitLen()+7)/8))
+	rb := r.FillBytes(make([]byte, (N.BitLen()+7)/8))
+	
+	if subtle.ConstantTimeCompare(xb, rb) != 1 {
 		return false, ErrInvalidSignature
 	}
 
