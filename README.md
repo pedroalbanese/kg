@@ -2,6 +2,7 @@
 KG Bulgarian Trusted Short Weierstrass Elliptic Curves
 
 The KG-256r1 and KG-384r1 curves were proposed by the Bulgarian Academy of Sciences:
+
 https://arxiv.org/abs/2208.01635
 
 ### Exemplo
