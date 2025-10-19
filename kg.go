@@ -1,3 +1,41 @@
+/*
+Package kgcrypto - Implementação de curvas elípticas KG256r1 e KG384r1 para criptografia de chave pública, conforme descrito no artigo:
+
+  "Efficient Cryptographic Primitives Based on Special Elliptic Curves"
+  (https://eprint.iacr.org/2023/1656)
+
+Este pacote define curvas elípticas personalizadas com parâmetros cuidadosamente escolhidos para garantir maior eficiência computacional em operações de ECDSA e ECDH. As curvas KG256r1 e KG384r1 seguem a forma clássica de Weierstrass com parâmetros `a`, `b`, `p`, `n`, `Gx`, `Gy`, mas com um coeficiente `a` não trivial, o que permite otimizações específicas de curva.
+
+Funcionalidades incluídas:
+- Implementação das curvas KG256r1 e KG384r1 (interface elliptic.Curve)
+- Geração de chaves compatíveis com o pacote crypto.Signer
+- Assinatura e verificação digital com ECDSA usando ASN.1
+- Cálculo de segredo compartilhado via ECDH
+- Serialização e desserialização em formatos PKCS#8 (privadas) e PKIX (públicas)
+- Conversão para/da chaves do pacote crypto/ecdsa
+
+A implementação é compatível com as interfaces padrão da biblioteca crypto Go, tornando possível o uso transparente em aplicações que esperam `crypto.Signer` ou `crypto.PublicKey`.
+
+====================================================================
+Licença ISC
+
+Copyright (c) 2025, [Seu Nome ou Organização]
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+====================================================================
+
+*/
+
 package kgcrypto
 
 import (
