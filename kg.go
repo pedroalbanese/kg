@@ -50,6 +50,7 @@ import (
 	"crypto/subtle"
 	"encoding/asn1"
 	"errors"
+	"fmt"
 	"io"
 	"math/big"
 	"sync"
@@ -923,10 +924,14 @@ func (pub *PublicKey) ToECDSAPublic() (*ecdsa.PublicKey, error) {
 		return nil, fmt.Errorf("invalid public key")
 	}
 
-	// Usar a curva diretamente do pacote kg
-	// As curvas do kg já implementam a interface elliptic.Curve
+	// Converter *KGCurve para elliptic.Curve
+	curve, ok := pub.Curve.(elliptic.Curve)
+	if !ok {
+		return nil, fmt.Errorf("unsupported curve type")
+	}
+
 	return &ecdsa.PublicKey{
-		Curve: pub.Curve,
+		Curve: curve,
 		X:     pub.X,
 		Y:     pub.Y,
 	}, nil
@@ -934,14 +939,18 @@ func (pub *PublicKey) ToECDSAPublic() (*ecdsa.PublicKey, error) {
 
 // FromECDSAPublic converte uma chave ecdsa.PublicKey para sua PublicKey personalizada
 func FromECDSAPublic(ecdsaPub *ecdsa.PublicKey) (*PublicKey, error) {
-	if ecdsaPub == nil || ecdsaPub.X == nil || ecdsaPub.Y == nil || ecdsaPub.Curve == nil {
+	if ecdsaPub == nil {
 		return nil, fmt.Errorf("invalid ECDSA public key")
 	}
 
-	// Converter a curva elliptic.Curve para *kg.KGCurve se necessário
-	// No pacote kg, a curva já é do tipo correto
+	// Converter elliptic.Curve para *KGCurve
+	kgCurve, ok := ecdsaPub.Curve.(*KGCurve)
+	if !ok {
+		return nil, fmt.Errorf("unsupported curve: not a KGCurve")
+	}
+
 	return &PublicKey{
-		Curve: ecdsaPub.Curve, // Isso funciona se kg usar elliptic.Curve
+		Curve: kgCurve,
 		X:     ecdsaPub.X,
 		Y:     ecdsaPub.Y,
 	}, nil
