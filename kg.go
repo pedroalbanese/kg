@@ -924,14 +924,9 @@ func (pub *PublicKey) ToECDSAPublic() (*ecdsa.PublicKey, error) {
 		return nil, fmt.Errorf("invalid public key")
 	}
 
-	// Converter *KGCurve para elliptic.Curve
-	curve, ok := pub.Curve.(elliptic.Curve)
-	if !ok {
-		return nil, fmt.Errorf("unsupported curve type")
-	}
-
+	// *KGCurve já implementa elliptic.Curve, então podemos usar diretamente
 	return &ecdsa.PublicKey{
-		Curve: curve,
+		Curve: pub.Curve, // *KGCurve implementa elliptic.Curve
 		X:     pub.X,
 		Y:     pub.Y,
 	}, nil
@@ -939,11 +934,11 @@ func (pub *PublicKey) ToECDSAPublic() (*ecdsa.PublicKey, error) {
 
 // FromECDSAPublic converte uma chave ecdsa.PublicKey para sua PublicKey personalizada
 func FromECDSAPublic(ecdsaPub *ecdsa.PublicKey) (*PublicKey, error) {
-	if ecdsaPub == nil {
+	if ecdsaPub == nil || ecdsaPub.X == nil || ecdsaPub.Y == nil || ecdsaPub.Curve == nil {
 		return nil, fmt.Errorf("invalid ECDSA public key")
 	}
 
-	// Converter elliptic.Curve para *KGCurve
+	// Fazer type assertion para *KGCurve
 	kgCurve, ok := ecdsaPub.Curve.(*KGCurve)
 	if !ok {
 		return nil, fmt.Errorf("unsupported curve: not a KGCurve")
