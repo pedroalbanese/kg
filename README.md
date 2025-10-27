@@ -1,4 +1,9 @@
 # KG 🇧🇬
+[![ISC License](http://img.shields.io/badge/license-ISC-blue.svg)](https://github.com/pedroalbanese/kg/blob/master/LICENSE.md) 
+[![GoDoc](https://godoc.org/github.com/pedroalbanese/kg?status.png)](http://godoc.org/github.com/pedroalbanese/kg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/pedroalbanese/kg)](https://goreportcard.com/report/github.com/pedroalbanese/kg)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/pedroalbanese/kg)](https://github.com/pedroalbanese/kg/releases)
+
 ### KG Bulgarian Trusted Short Weierstrass Elliptic Curves
 
 The KG-256r1 and KG-384r1 curves were proposed by the Bulgarian Academy of Sciences:  
